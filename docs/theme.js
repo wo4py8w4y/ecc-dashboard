@@ -39,7 +39,10 @@
       const foreground = ratio >= 4.5 ? theme.foreground : (luminance(bg) > .179 ? '#111111' : '#ffffff');
       style.setProperty('--site-background', bg);
       style.setProperty('--site-secondary', theme.black);
-      style.setProperty('--site-on-secondary', theme.foreground);
+      const secondaryRatio = (Math.max(luminance(theme.black), luminance(theme.foreground)) + .05) /
+        (Math.min(luminance(theme.black), luminance(theme.foreground)) + .05);
+      style.setProperty('--site-on-secondary', secondaryRatio >= 4.5 ? theme.foreground :
+        (luminance(theme.black) > .179 ? '#111111' : '#ffffff'));
       style.setProperty('--site-on-background', foreground);
       if (themeChange) {
         style.setProperty('--site-primary', theme.blue);
